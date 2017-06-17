@@ -11,64 +11,100 @@ export default class Home extends Component {
 	render() {
 		return (
 			<div class={style.home}>
-				<h1>Monday</h1>
-				<DynamicBounds />
+				<Sliders day="Monday"/>
+				<Sliders day="Tuesday"/>
+				<Sliders day="Wednesday"/>
+				<Sliders day="Thursday"/>
+				<Sliders day="Friday"/>
+				<Sliders day="Saturday"/>
+				<Sliders day="Sunday"/>
 			</div>
 		)
 	}
 }
 
-class DynamicBounds extends Component {
+class Sliders extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			min: 0,
 			max: 23,
-			range: [0, 0],
+      slot1: {from: 8, to: 12},
+      slot2: {from: 13, to: 15},
+      slot3: {from: 16, to: 20},
 		}
 	}
 
-	onSliderChange = value => {
-		log(value)
-		this.setState({ range: value })
+  componentDidMount() {
+  }
+
+	onSlider1Change = value => {
+		this.setState({ slot1: {from: value[0], to: value[1]} })
+	}
+
+	onSlider2Change = value => {
+		this.setState({ slot2: {from: value[0], to: value[1]} })
+	}
+
+	onSlider3Change = value => {
+		this.setState({ slot3: {from: value[0], to: value[1]} })
 	}
 
 	render() {
 		return (
-			<div>
-				<span>{this.state.range[0]}</span>
-				<span>{this.state.range[1]}</span>
+			<div class={style.slider}>
+        <h2>{this.props.day}</h2>
+				<span>{addAmOrPm(this.state.slot1.from)}-</span>
+				<span class={style.time}>{addAmOrPm(this.state.slot1.to)},</span>
+
+				<span>{addAmOrPm(this.state.slot2.from)}-</span>
+				<span class={style.time}>{addAmOrPm(this.state.slot2.to)},</span>
+
+				<span>{addAmOrPm(this.state.slot3.from)}-</span>
+				<span>{addAmOrPm(this.state.slot3.to)}</span>
 				<br /><br />
 				<Range
-					defaultValue={[7, 9]}
+					defaultValue={[this.state.slot1.from, this.state.slot1.to]}
 					min={this.state.min}
 					max={this.state.max}
-					onChange={this.onSliderChange}
+					onChange={this.onSlider1Change}
           pushable
           allowCross={false}
-          marks={{0: "12am", 7: "8am", 15: "4pm", 23: "11pm"}}
+          marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
 				/>
 				<br /><br />
 				<Range
-					defaultValue={[10, 14]}
+					defaultValue={[this.state.slot2.from, this.state.slot2.to]}
 					min={this.state.min}
 					max={this.state.max}
-					onChange={this.onSliderChange}
+					onChange={this.onSlider2Change}
           pushable
           allowCross={false}
-          marks={{0: "12am", 7: "8am", 15: "4pm", 23: "11pm"}}
+          marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
 				/>
 				<br /><br />
 				<Range
-					defaultValue={[15, 18]}
+					defaultValue={[this.state.slot3.from, this.state.slot3.to]}
 					min={this.state.min}
 					max={this.state.max}
-					onChange={this.onSliderChange}
+					onChange={this.onSlider3Change}
           pushable
           allowCross={false}
-          marks={{0: "12am", 7: "8am", 15: "4pm", 23: "11pm"}}
+          marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
 				/>
 			</div>
 		)
 	}
 }
+
+const addAmOrPm = (time) => {
+  if(Number(time) > 11) {
+
+  if(Number(time) > 12) {time = time - 12}
+
+    return `${time}pm`
+  }
+
+  if(Number(time) === 0) {time=12}
+  return `${time}am`
+};
