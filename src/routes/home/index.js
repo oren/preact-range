@@ -25,49 +25,48 @@ class DynamicBounds extends Component {
 			min: 0,
 			max: 23,
 			range: [0, 0],
-			vertical: true,
-			marks: { 0: "8am", 1: "9am" }
 		}
 	}
+
 	onSliderChange = value => {
 		log(value)
 		this.setState({ range: value })
 	}
-	onMinChange = e => {
-		this.setState({
-			min: +e.target.value || 0
-		})
-	}
-	onMaxChange = e => {
-		this.setState({
-			max: +e.target.value || 23
-		})
-	}
+
 	render() {
 		return (
 			<div>
-				<label>Min: </label>
-				<input
-					type="number"
-					value={this.state.min}
-					onChange={this.onMinChange}
-				/>
-				<br />
-				<label>Max: </label>
-				<input
-					type="number"
-					value={this.state.max}
-					onChange={this.onMaxChange}
-				/>
-				<br /><br />
 				<span>{this.state.range[0]}</span>
 				<span>{this.state.range[1]}</span>
 				<br /><br />
 				<Range
-					defaultValue={[0, 0]}
+					defaultValue={[7, 9]}
 					min={this.state.min}
 					max={this.state.max}
 					onChange={this.onSliderChange}
+          pushable
+          allowCross={false}
+          marks={{0: "12am", 7: "8am", 15: "4pm", 23: "11pm"}}
+				/>
+				<br /><br />
+				<Range
+					defaultValue={[10, 14]}
+					min={this.state.min}
+					max={this.state.max}
+					onChange={this.onSliderChange}
+          pushable
+          allowCross={false}
+          marks={{0: "12am", 7: "8am", 15: "4pm", 23: "11pm"}}
+				/>
+				<br /><br />
+				<Range
+					defaultValue={[15, 18]}
+					min={this.state.min}
+					max={this.state.max}
+					onChange={this.onSliderChange}
+          pushable
+          allowCross={false}
+          marks={{0: "12am", 7: "8am", 15: "4pm", 23: "11pm"}}
 				/>
 			</div>
 		)
