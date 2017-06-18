@@ -2,6 +2,7 @@ import { h, Component } from "preact"
 import style from "./style"
 import Range from "rc-slider/lib/Range"
 import "rc-slider/assets/index.css"
+import IconMinus from "../icons/minus"
 
 function log(value) {
 	console.log(value) //eslint-disable-line
@@ -28,7 +29,7 @@ class Sliders extends Component {
 		super(props)
 		this.state = {
 			min: 0,
-			max: 23,
+			max: 43,
       slot1: {from: 8, to: 12},
       slot2: {from: 13, to: 15},
       slot3: {from: 16, to: 20},
@@ -83,7 +84,9 @@ class Sliders extends Component {
           marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
 				/>
 				<br /><br />
+				<IconMinus size="24" class={style.minus} />
 				<Range
+          class={style.range}
 					defaultValue={[this.state.slot3.from, this.state.slot3.to]}
 					min={this.state.min}
 					max={this.state.max}
