@@ -13,12 +13,14 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<Sliders day="Monday"/>
+      {/*
 				<Sliders day="Tuesday"/>
 				<Sliders day="Wednesday"/>
 				<Sliders day="Thursday"/>
 				<Sliders day="Friday"/>
 				<Sliders day="Saturday"/>
 				<Sliders day="Sunday"/>
+      */}
 			</div>
 		)
 	}
@@ -54,47 +56,56 @@ class Sliders extends Component {
 	render() {
 		return (
 			<div class={style.slider}>
-        <h2>{this.props.day}</h2>
-				<span>{addAmOrPm(this.state.slot1.from)}-</span>
-				<span class={style.time}>{addAmOrPm(this.state.slot1.to)},</span>
+        <div class={style.summary}>
+          <h2>{this.props.day}</h2>
+          <span>{addAmOrPm(this.state.slot1.from)}-</span>
+          <span class={style.time}>{addAmOrPm(this.state.slot1.to)},</span>
 
-				<span>{addAmOrPm(this.state.slot2.from)}-</span>
-				<span class={style.time}>{addAmOrPm(this.state.slot2.to)},</span>
+          <span>{addAmOrPm(this.state.slot2.from)}-</span>
+          <span class={style.time}>{addAmOrPm(this.state.slot2.to)},</span>
 
-				<span>{addAmOrPm(this.state.slot3.from)}-</span>
-				<span>{addAmOrPm(this.state.slot3.to)}</span>
-				<br /><br />
-				<Range
-					defaultValue={[this.state.slot1.from, this.state.slot1.to]}
-					min={this.state.min}
-					max={this.state.max}
-					onChange={this.onSlider1Change}
-          pushable
-          allowCross={false}
-          marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
-				/>
-				<br /><br />
-				<Range
-					defaultValue={[this.state.slot2.from, this.state.slot2.to]}
-					min={this.state.min}
-					max={this.state.max}
-					onChange={this.onSlider2Change}
-          pushable
-          allowCross={false}
-          marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
-				/>
-				<br /><br />
-				<IconMinus size="24" class={style.minus} />
-				<Range
-          class={style.range}
-					defaultValue={[this.state.slot3.from, this.state.slot3.to]}
-					min={this.state.min}
-					max={this.state.max}
-					onChange={this.onSlider3Change}
-          pushable
-          allowCross={false}
-          marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
-				/>
+          <span>{addAmOrPm(this.state.slot3.from)}-</span>
+          <span>{addAmOrPm(this.state.slot3.to)}</span>
+        </div>
+
+        <div class={style.ranges}>
+          <Range
+            defaultValue={[this.state.slot1.from, this.state.slot1.to]}
+            min={this.state.min}
+            max={this.state.max}
+            onChange={this.onSlider1Change}
+            pushable
+            allowCross={false}
+            marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
+            class={style.range}
+          />
+          <br /><br />
+          <Range
+            defaultValue={[this.state.slot2.from, this.state.slot2.to]}
+            min={this.state.min}
+            max={this.state.max}
+            onChange={this.onSlider2Change}
+            pushable
+            allowCross={false}
+            marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
+            class={style.range}
+          />
+          <br /><br />
+          <Range
+            class={style.range}
+            defaultValue={[this.state.slot3.from, this.state.slot3.to]}
+            min={this.state.min}
+            max={this.state.max}
+            onChange={this.onSlider3Change}
+            pushable
+            allowCross={false}
+            marks={{0: "12am", 8: "8am", 16: "4pm", 23: "11pm"}}
+            class={style.range}
+          />
+          <div class={style.action}><IconMinus size="24" class={style.minus} /></div>
+        <div class={style.clear}></div>
+        </div>
+
 			</div>
 		)
 	}
